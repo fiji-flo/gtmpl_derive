@@ -9,4 +9,4 @@ proc-macro = true
 [dependencies]
 syn = "0.11.11"
 quote = "0.3.15"
-gtmpl_value = { path = "../gtmpl_value" }
+gtmpl_value = { git = "https://github.com/fiji-flo/gtmpl_value.git" }

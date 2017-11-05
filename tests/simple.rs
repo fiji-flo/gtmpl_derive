@@ -14,7 +14,7 @@ fn test1() {
         bar: String,
     }
 
-    let val = Value::from(&Foo { bar: "2000".to_owned() });
+    let val = Value::from(Foo { bar: "2000".to_owned() });
     if let Value::Object(ref m) = val {
         assert_eq!(m.get("bar"), Some(&Value::String("2000".to_owned())));
     } else {
@@ -29,7 +29,7 @@ fn test2() {
         bar: i64,
     }
 
-    let val = Value::from(&Foo { bar: 23 });
+    let val = Value::from(Foo { bar: 23 });
     if let Value::Object(ref m) = val {
         if let Some(&Value::Number(ref n)) = m.get("bar") {
             return assert_eq!(n.as_i64(), Some(23));
@@ -51,7 +51,7 @@ fn test3() {
         bar: Func,
     }
 
-    let val = Value::from(&Foo { bar: bar });
+    let val = Value::from(Foo { bar: bar });
     let param: &[Arc<Any>] = &[Arc::new(Value::from(23i64))];
     if let Value::Object(ref m) = val {
         if let Some(&Value::Function(ref f)) = m.get("bar") {

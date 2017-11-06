@@ -28,7 +28,7 @@ fn impl_gtmpl(ast: &syn::DeriveInput) -> quote::Tokens {
         syn::Body::Struct(syn::VariantData::Struct(ref body)) => {
             let fields = body.iter()
                 .filter_map(|field| field.ident.as_ref())
-                .map(|ident| quote! { m.insert(stringify!(#ident).to_owned(), s.#ident.clone().into()) })
+                .map(|ident| quote! { m.insert(stringify!(#ident).to_owned(), s.#ident.into()) })
                 .collect::<Vec<_>>();
             quote! { #(#fields);* }
         },

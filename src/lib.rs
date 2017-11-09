@@ -41,6 +41,7 @@ fn impl_gtmpl(ast: &syn::DeriveInput) -> quote::Tokens {
         impl From<#name> for ::gtmpl_value::Value {
             fn from(s: #name) -> ::gtmpl_value::Value {
                 use std::collections::HashMap;
+                #[warn(unused_mut)]
                 let mut m: HashMap<String, ::gtmpl_value::Value> = HashMap::new();
                 #to_value;
                 ::gtmpl_value::Value::Object(m)

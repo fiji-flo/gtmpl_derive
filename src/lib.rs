@@ -1,3 +1,15 @@
+//! This crate provides gtmpl_value's derive macro.
+//!
+//! ```rust
+//! # #[macro_use]
+//! # extern crate gtmpl_derive;
+//! # extern crate gtmpl_value;
+//! #
+//! #[derive(Gtmpl)]
+//! # struct S;
+//! #
+//! # fn main() {}
+//! ```
 extern crate proc_macro;
 extern crate syn;
 #[macro_use]
@@ -32,6 +44,7 @@ fn impl_gtmpl(ast: &syn::DeriveInput) -> quote::Tokens {
                 .collect::<Vec<_>>();
             quote! { #(#fields);* }
         },
+        syn::Body::Struct(syn::VariantData::Unit) => { quote! {} },
         _ => {
             //Nope. This is an Enum. We cannot handle these!
             panic!("#[derive(Gtmpl)] is only defined for structs, not for enums!");

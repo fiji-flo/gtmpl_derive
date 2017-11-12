@@ -40,10 +40,8 @@ fn test2() {
 
 #[test]
 fn test3() {
-    gtmpl_fn!{
-        fn bar(i: i64) -> Result<i64, String> {
-            Ok(i + 1)
-        }
+    fn bar(a: &[Arc<Any>]) -> Result<Arc<Any>, String> {
+        Ok(a[0].clone())
     };
 
     #[derive(Gtmpl)]
@@ -57,7 +55,7 @@ fn test3() {
         if let Some(&Value::Function(ref f)) = m.get("bar") {
             let res = (f.f)(param).unwrap();
             if let Some(&Value::Number(ref i)) = res.downcast_ref::<Value>() {
-                return assert_eq!(i.as_i64(), Some(24));
+                return assert_eq!(i.as_i64(), Some(23));
             }
         }
     }

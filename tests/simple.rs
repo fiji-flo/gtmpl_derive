@@ -1,4 +1,3 @@
-#[macro_use]
 extern crate gtmpl_value;
 #[macro_use]
 extern crate gtmpl_derive;
@@ -41,7 +40,7 @@ fn test2() {
 #[test]
 fn test3() {
     fn bar(a: &[Arc<Any>]) -> Result<Arc<Any>, String> {
-        Ok(a[0].clone())
+        Ok(Arc::clone(&a[0]))
     };
 
     #[derive(Gtmpl)]

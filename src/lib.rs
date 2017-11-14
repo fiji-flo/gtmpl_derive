@@ -1,14 +1,19 @@
 //! This crate provides gtmpl_value's derive macro.
 //!
 //! ```rust
-//! # #[macro_use]
-//! # extern crate gtmpl_derive;
-//! # extern crate gtmpl_value;
-//! #
+//! #[macro_use]
+//! extern crate gtmpl_derive;
+//! extern crate gtmpl_value;
+//! use gtmpl_value::Value;
+//!
 //! #[derive(Gtmpl)]
-//! # struct S;
-//! #
-//! # fn main() {}
+//! struct Foo {
+//!     bar: u8
+//! }
+//!
+//! fn main() {
+//!     let v: Value = (Foo { bar: 23 }).into();
+//! }
 //! ```
 extern crate proc_macro;
 extern crate syn;

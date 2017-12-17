@@ -15,11 +15,11 @@
 //!     let v: Value = (Foo { bar: 23 }).into();
 //! }
 //! ```
+extern crate gtmpl_value;
 extern crate proc_macro;
-extern crate syn;
 #[macro_use]
 extern crate quote;
-extern crate gtmpl_value;
+extern crate syn;
 
 use proc_macro::TokenStream;
 
@@ -48,8 +48,10 @@ fn impl_gtmpl(ast: &syn::DeriveInput) -> quote::Tokens {
                 .map(|ident| quote! { m.insert(stringify!(#ident).to_owned(), s.#ident.into()) })
                 .collect::<Vec<_>>();
             quote! { #(#fields);* }
-        },
-        syn::Body::Struct(syn::VariantData::Unit) => { quote! {} },
+        }
+        syn::Body::Struct(syn::VariantData::Unit) => {
+            quote!{}
+        }
         _ => {
             //Nope. This is an Enum. We cannot handle these!
             panic!("#[derive(Gtmpl)] is only defined for structs, not for enums!");

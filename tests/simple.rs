@@ -1,9 +1,7 @@
-extern crate gtmpl_value;
 #[macro_use]
 extern crate gtmpl_derive;
+extern crate gtmpl_value;
 
-use std::any::Any;
-use std::sync::Arc;
 use std::collections::HashMap;
 use gtmpl_value::{Func, Value};
 
@@ -14,7 +12,9 @@ fn test1() {
         bar: String,
     }
 
-    let val = Value::from(Foo { bar: "2000".to_owned() });
+    let val = Value::from(Foo {
+        bar: "2000".to_owned(),
+    });
     if let Value::Object(ref m) = val {
         assert_eq!(m.get("bar"), Some(&Value::String("2000".to_owned())));
     } else {
@@ -46,8 +46,8 @@ fn test2() {
 
 #[test]
 fn test3() {
-    fn bar(a: &[Arc<Any>]) -> Result<Arc<Any>, String> {
-        Ok(Arc::clone(&a[0]))
+    fn bar(a: &[Value]) -> Result<Value, String> {
+        Ok(a[0].clone())
     };
 
     #[derive(Gtmpl)]
@@ -56,11 +56,11 @@ fn test3() {
     }
 
     let val = Value::from(Foo { bar: bar });
-    let param: &[Arc<Any>] = &[Arc::new(Value::from(23i64))];
+    let param: &[Value] = &[Value::from(23i64)];
     if let Value::Object(ref m) = val {
         if let Some(&Value::Function(ref f)) = m.get("bar") {
             let res = (f.f)(param).unwrap();
-            if let Some(&Value::Number(ref i)) = res.downcast_ref::<Value>() {
+            if let Value::Number(ref i) = res {
                 return assert_eq!(i.as_i64(), Some(23));
             }
         }

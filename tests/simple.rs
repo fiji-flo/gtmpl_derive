@@ -2,8 +2,8 @@
 extern crate gtmpl_derive;
 extern crate gtmpl_value;
 
-use std::collections::HashMap;
 use gtmpl_value::{Func, Value};
+use std::collections::HashMap;
 
 #[test]
 fn test1() {
@@ -55,7 +55,7 @@ fn test3() {
         bar: Func,
     }
 
-    let val = Value::from(Foo { bar: bar });
+    let val = Value::from(Foo { bar });
     let param: &[Value] = &[Value::from(23i64)];
     if let Value::Object(ref m) = val {
         if let Some(&Value::Function(ref f)) = m.get("bar") {

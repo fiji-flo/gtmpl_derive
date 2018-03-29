@@ -26,31 +26,28 @@ use proc_macro::TokenStream;
 #[proc_macro_derive(Gtmpl)]
 pub fn gtmpl_derive(input: TokenStream) -> TokenStream {
     // Construct a string representation of the type definition
-    let s = input.to_string();
 
     // Parse the string representation
-    let ast = syn::parse_derive_input(&s).unwrap();
+    let ast = syn::parse(input).unwrap();
 
     // Build the impl
     let gen = impl_gtmpl(&ast);
 
     // Return the generated impl
-    gen.parse().unwrap()
+    gen.into()
 }
 
 fn impl_gtmpl(ast: &syn::DeriveInput) -> quote::Tokens {
     let name = &ast.ident;
     // Check if derive(HelloWorld) was specified for a struct
-    let to_value = match ast.body {
-        syn::Body::Struct(syn::VariantData::Struct(ref body)) => {
-            let fields = body.iter()
+    let to_value = match ast.data {
+        syn::Data::Struct(syn::DataStruct { ref fields, .. }) => {
+            let fields = fields
+                .iter()
                 .filter_map(|field| field.ident.as_ref())
                 .map(|ident| quote! { m.insert(stringify!(#ident).to_owned(), s.#ident.into()) })
                 .collect::<Vec<_>>();
             quote! { #(#fields);* }
-        }
-        syn::Body::Struct(syn::VariantData::Unit) => {
-            quote!{}
         }
         _ => {
             //Nope. This is an Enum. We cannot handle these!

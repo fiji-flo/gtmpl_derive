@@ -1,6 +1,6 @@
 [package]
 name = "gtmpl_derive"
-version = "0.3.1"
+version = "0.3.2"
 authors = ["Florian Merz <flomerz@gmail.com>"]
 description = "Derive for gtmpl_value"
 license = "MIT"
@@ -14,6 +14,7 @@ include = ["Cargo.toml", "src/**/*.rs", "tests/**/*.rs", "README.md", "LICENSE"]
 proc-macro = true
 
 [dependencies]
-syn = "0.12"
-quote = "0.4"
+syn = "0.15"
+quote = "0.6"
 gtmpl_value = "0.3"
+proc-macro2 = "0.4"

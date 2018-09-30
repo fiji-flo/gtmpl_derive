@@ -17,6 +17,7 @@
 //! ```
 extern crate gtmpl_value;
 extern crate proc_macro;
+extern crate proc_macro2;
 #[macro_use]
 extern crate quote;
 extern crate syn;
@@ -37,7 +38,7 @@ pub fn gtmpl_derive(input: TokenStream) -> TokenStream {
     gen.into()
 }
 
-fn impl_gtmpl(ast: &syn::DeriveInput) -> quote::Tokens {
+fn impl_gtmpl(ast: &syn::DeriveInput) -> proc_macro2::TokenStream {
     let name = &ast.ident;
     // Check if derive(HelloWorld) was specified for a struct
     let to_value = match ast.data {

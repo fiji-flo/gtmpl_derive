@@ -1,9 +1,7 @@
 //! This crate provides gtmpl_value's derive macro.
 //!
 //! ```rust
-//! #[macro_use]
-//! extern crate gtmpl_derive;
-//! extern crate gtmpl_value;
+//! use gtmpl_derive::Gtmpl;
 //! use gtmpl_value::Value;
 //!
 //! #[derive(Gtmpl)]
@@ -11,18 +9,11 @@
 //!     bar: u8
 //! }
 //!
-//! fn main() {
-//!     let v: Value = (Foo { bar: 23 }).into();
-//! }
+//!let v: Value = (Foo { bar: 23 }).into();
 //! ```
-extern crate gtmpl_value;
-extern crate proc_macro;
-extern crate proc_macro2;
-#[macro_use]
-extern crate quote;
-extern crate syn;
 
 use proc_macro::TokenStream;
+use quote::quote;
 
 #[proc_macro_derive(Gtmpl)]
 pub fn gtmpl_derive(input: TokenStream) -> TokenStream {

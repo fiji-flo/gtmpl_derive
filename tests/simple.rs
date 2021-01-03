@@ -1,7 +1,4 @@
-#[macro_use]
-extern crate gtmpl_derive;
-extern crate gtmpl_value;
-
+use gtmpl_derive::Gtmpl;
 use gtmpl_value::{Func, Value};
 use std::collections::HashMap;
 
@@ -84,6 +81,60 @@ fn test4() {
         } else {
             assert!(false);
         }
+    } else {
+        assert!(false);
+    }
+}
+
+#[test]
+fn test5() {
+    #[derive(Gtmpl, Clone)]
+    struct Foo {
+        name: String,
+        value: i64,
+    }
+    #[derive(Gtmpl)]
+    struct Bar {
+        fields: Vec<Foo>,
+    }
+    let val = Value::from(Bar {
+        fields: vec![Foo {
+            name: "something".to_owned(),
+            value: 23i64,
+        }],
+    });
+    if let Value::Object(ref m) = val {
+        assert!(m.get("fields").is_some());
+    } else {
+        assert!(false);
+    }
+}
+
+#[test]
+fn test6() {
+    #[derive(Gtmpl)]
+    struct Foo {
+        field: Option<String>,
+    }
+    let val = Value::from(Foo {
+        field: Some("something".to_owned()),
+    });
+    if let Value::Object(ref m) = val {
+        assert!(m.get("field").is_some());
+    } else {
+        assert!(false);
+    }
+}
+
+#[test]
+fn test7() {
+    #[derive(Gtmpl)]
+    struct Foo {
+        field: Option<String>,
+    }
+    let val = Value::from(Foo { field: None });
+    if let Value::Object(ref m) = val {
+        assert_eq!(m.get("field"), Some(&Value::NoValue));
     } else {
         assert!(false);
     }

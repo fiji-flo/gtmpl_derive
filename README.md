@@ -1,6 +1,4 @@
-# gtmpl_derive &emsp; [![Build Status]][travis] [![Latest Version]][crates.io]
-[Build Status]: https://travis-ci.org/fiji-flo/gtmpl_derive.svg?branch=master
-[travis]: https://travis-ci.org/fiji-flo/gtmpl_derive
+# gtmpl_derive &emsp; [![Latest Version]][crates.io]
 [Latest Version]: https://img.shields.io/crates/v/gtmpl_derive.svg
 [crates.io]: https://crates.io/crates/gtmpl_derive
 
@@ -11,7 +9,7 @@
 
 ```toml
 [dependencies]
-gtmpl_derive = "0.3.3"
+gtmpl_derive = "0.4"
 ```
 
 * [gtmpl_derive at crates.io](https://crates.io/crate/gtmpl_derive)
@@ -20,9 +18,7 @@ gtmpl_derive = "0.3.3"
 ## Usage
 
 ```rust
-#[macro_use]
-extern crate gtmpl_derive;
-extern crate gtmpl_value;
+use gtmpl_derive::Gtmpl;
 use gtmpl_value::Value;
 
 #[derive(Gtmpl)]

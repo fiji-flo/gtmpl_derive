@@ -9,7 +9,7 @@
 
 ```toml
 [dependencies]
-gtmpl_derive = "0.4"
+gtmpl_derive = "0.5"
 ```
 
 * [gtmpl_derive at crates.io](https://crates.io/crate/gtmpl_derive)

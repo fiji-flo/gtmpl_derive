@@ -1,5 +1,5 @@
 use gtmpl_derive::Gtmpl;
-use gtmpl_value::{Func, Value};
+use gtmpl_value::{Func, FuncError, Value};
 use std::collections::HashMap;
 
 #[test]
@@ -43,9 +43,9 @@ fn test2() {
 
 #[test]
 fn test3() {
-    fn bar(a: &[Value]) -> Result<Value, String> {
+    fn bar(a: &[Value]) -> Result<Value, FuncError> {
         Ok(a[0].clone())
-    };
+    }
 
     #[derive(Gtmpl)]
     struct Foo {
